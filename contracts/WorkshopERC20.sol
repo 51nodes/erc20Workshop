@@ -13,7 +13,10 @@ contract WorkshopERC20 {
 
 
 // help 3 : https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20-transfer-address-uint256-
+// help 3: https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20-_transfer-address-address-uint256-
 // help 3: https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20-_burn-address-uint256-
+// help 3: https://docs.soliditylang.org/en/v0.8.4/contracts.html?highlight=override#function-overriding
 // (3) rewrite the transfer function to burn 1 token on each transfer
+// example: alice send 11 tokens to Bob. After running the transfer tx Bob should have +10 (balance + 10) tokens, alice have -11 (balance - 11) and extra 1 token is burned
 
 }
