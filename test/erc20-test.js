@@ -13,15 +13,19 @@ describe("ERC20", function () {
   const mintAmount = BigNumber.from('1000').mul(BigNumber.from('1000000000000000000'));
 
   before( async () => {
+    // get accounts
     accounts = await ethers.getSigners();
+    // assign the first 3 accounts
     [deployer, alice, eve] = accounts;
+    // get compiled data and other relevant information
     WorkshopERC20 = await ethers.getContractFactory("WorkshopERC20");
+    // deploy contract
     erc20Instance = await WorkshopERC20.deploy(name, symbol, mintAmount);
     await erc20Instance.deployed();
   });
 
   it("Should return total supply and the balance of the owner", async function () {
-    // check total supply
+    // check the total supply (amount of minted token)
     // help https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#ERC20-totalSupply--
     const totalSupply = await erc20Instance.totalSupply();// get total supply
     expect(totalSupply.toString()).to.equal(mintAmount.toString());
@@ -39,16 +43,15 @@ describe("ERC20", function () {
     const oneToken = BigNumber.from(`1000000000000000000`);
     const amountToTransfer = BigNumber.from('11000000000000000000');
     const addressOfAlice = alice.address;
-    const transferTx = await erc20Instance.connect(deployer).transfer(addressOfAlice, amountToTransfer) // transfer token to alice
-    await transferTx.wait();
+    const transferTx = await erc20Instance.connect(deployer).transfer(addressOfAlice, amountToTransfer); // transfer token to alice
+    await transferTx.wait(); // wait unitl the transaction is mined
 
     // check the balance of deployer
-    const balanceOfAlice = await erc20Instance.balanceOf(addressOfAlice);// get balance of alice
+    const balanceOfAlice = await erc20Instance.balanceOf(addressOfAlice); // get balance of alice
     expect(balanceOfAlice.toString()).to.equal(amountToTransfer.sub(oneToken).toString());
 
     // check the balance of alice
-    const newBalanceOfDeployer = await erc20Instance.balanceOf(deployer.address)// get balance of deployer
+    const newBalanceOfDeployer = await erc20Instance.balanceOf(deployer.address); // get balance of deployer
     expect(newBalanceOfDeployer.toString()).to.equal(mintAmount.sub(amountToTransfer).toString());
-
   });
 });

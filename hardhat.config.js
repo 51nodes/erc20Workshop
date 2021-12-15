@@ -32,6 +32,7 @@ module.exports = {
     },
     rinkeby: {
       url: 'https://eth-rinkeby.alchemyapi.io/v2/<YOUR ALCHEMY KEY>',
+      // WARNING: Example private key, DO NOT USE IT ANYWARE!
       accounts:
         ['0xabc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1'],
     },
